@@ -116,6 +116,41 @@ fetch("header.html")
       });
     }
 
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("/Evident-AI/header.html")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Header not found");
+      }
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById("site-header").innerHTML = data;
+
+      // Mobile menu toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      if (menuToggle) {
+        menuToggle.addEventListener("click", () => {
+          navLinks.classList.toggle("show");
+        });
+      }
+
+      // Active link highlight
+      document.querySelectorAll(".nav-links a").forEach(link => {
+        if (link.href === window.location.href) {
+          link.classList.add("active");
+        }
+      });
+    })
+    .catch(error => {
+      console.error("Header load error:", error);
+    });
+});
+
+
+    
     // Active page highlight
     document.querySelectorAll(".nav-links a").forEach(link => {
       if (link.href === window.location.href) {
