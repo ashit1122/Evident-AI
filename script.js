@@ -99,3 +99,27 @@ document.querySelectorAll(".tab").forEach(tab => {
     document.getElementById(tab.dataset.tab).classList.add("active");
   });
 });
+
+/* LOAD COMMON HEADER */
+fetch("header.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("site-header").innerHTML = data;
+
+    // Mobile toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+    }
+
+    // Active page highlight
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add("active");
+      }
+    });
+  });
